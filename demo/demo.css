@@ -1,0 +1,143 @@
+/*
+ * Custom Styles
+ */
+
+div.custom-style-tags div.multi-input-container {
+    font-size: 1.2em;
+}
+
+li.multi-input-token > p {
+    display: flex;
+    align-items: center;
+}
+
+div.custom-style-tags .multi-input-delete-button {
+    color: white;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    display: block;
+    border-left: 1px solid white;
+    padding-left: 0.3em;
+    margin-left: 0.5em;
+}
+
+div.custom-style-tags .multi-input-delete-button::after {
+    content: "\f00d"; /* fa-remove */
+}
+
+div.custom-style-tags li.multi-input-token {
+    background-color: var(--elm-blue);
+    color: white;
+}
+
+div.custom-style-tags li.multi-input-token-invalid {
+    background-color: var(--elm-orange);
+}
+
+div.custom-style-tags .multi-input-expanding-area > textarea {
+    color: var(--elm-grey);
+}
+
+
+/*
+ *Page
+ */
+
+body {
+    --bg-color: #efefef;
+    --elm-grey: #5A6378;
+    --elm-orange: #F0AD00;
+    --elm-blue: #60B5CC;
+
+    margin: 0;
+    font-family: Helvetica, sans-serif;
+}
+
+header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: var(--bg-color);
+    margin: 0;
+    padding: 1em;
+    color: var(--elm-grey);
+}
+
+span.logo {
+    margin: 0;
+    font-size: 5em;
+    font-family: monospace;
+}
+
+span.logo > span.multi {
+    color: var(--elm-orange);
+}
+
+span.logo > span.pipe {
+    letter-spacing: -0.2em;
+    color: var(--elm-blue);
+}
+
+a {
+    color: var(--elm-grey);
+}
+
+a:hover {
+    color: var(--elm-blue);
+}
+
+div#main > div.example-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 2em;
+}
+
+div.example {
+    max-width: 50em;
+    margin: 1.5em 0 0;
+    background: var(--bg-color);
+    padding: 0 2em;
+    width: 90%;
+}
+
+div.example > h2 {
+    color: var(--elm-grey);
+    text-align: center;
+}
+
+div.example > p.explanation {
+    color: var(--elm-grey);
+}
+
+div.example > pre {
+    color: var(--elm-grey);
+    font-family: monospace;
+    padding-left: 1em;
+}
+
+button.reset {
+    float: right;
+    margin: 2em 0 1em;
+    border: 1px solid transparent;
+    color: white;
+    background: var(--elm-grey);
+    border-radius: 15px;
+    font-size: 1.1em;
+    padding: 0.2em 0.8em;
+    font-weight: bold;
+}
+
+button.reset:hover {
+    border-color: var(--elm-grey);
+    color: var(--elm-grey);
+    background: white;
+    cursor: pointer;
+}
+
+div.emails p.counter {
+    text-align: right;
+    color: var(--elm-grey);
+    margin: 0.5em 0 0;
+}
