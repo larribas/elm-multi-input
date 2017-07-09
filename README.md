@@ -1,4 +1,4 @@
-# elm-multi-input [![Build Status](https://travis-ci.org/elm-lang/core.svg?branch=master)](https://travis-ci.org/larribas/elm-multi-input)
+# elm-multi-input [![Build Status](https://travis-ci.org/larribas/elm-multi-input.svg?branch=master)](https://travis-ci.org/larribas/elm-multi-input)
 
 A multi-value input for Elm
 
