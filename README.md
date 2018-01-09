@@ -87,7 +87,7 @@ view model =
         model.inputState
 
 
-viewConfig : MultiInput.ViewConfig
+viewConfig : MultiInput.ViewConfig Msg
 viewConfig
         { placeholder = "Write email here"
         , toOuterMsg = MultiInputMsg
