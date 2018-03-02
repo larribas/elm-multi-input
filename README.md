@@ -88,7 +88,7 @@ view model =
 
 
 viewConfig : MultiInput.ViewConfig Msg
-viewConfig
+viewConfig =
         { placeholder = "Write email here"
         , toOuterMsg = MultiInputMsg
         , isValid = Regex.find (Regex.AtMost 1) (Regex.regex ".+@.+\\..+") >> List.isEmpty >> not
