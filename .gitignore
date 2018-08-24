@@ -4,3 +4,4 @@ elm-stuff
 repl-temp-*
 
 tests/index.html
+node_modules
