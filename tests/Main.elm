@@ -1,4 +1,4 @@
-module Main exposing (..)
+module Main exposing (all, defaultInitState, suite, updateConfig)
 
 import Expect exposing (Expectation)
 import Fuzz exposing (Fuzzer, int, list, string)
@@ -102,6 +102,7 @@ all expectation message cases =
         Just head ->
             if expectation head == Expect.pass then
                 all expectation message (Maybe.withDefault [] <| List.tail cases)
+
             else
                 Expect.fail <| message head
 

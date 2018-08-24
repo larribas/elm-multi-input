@@ -1,5 +1,6 @@
 module Demo exposing (main)
 
+import Browser
 import Html exposing (Html)
 import Html.Attributes as Attr
 import Html.Events as Ev
@@ -7,10 +8,10 @@ import MultiInput
 import Regex exposing (Regex)
 
 
-main : Program Never Model Msg
+main : Program () Model Msg
 main =
-    Html.program
-        { init = init
+    Browser.element
+        { init = always init
         , update = update
         , view = view
         , subscriptions = subscriptions
@@ -43,9 +44,18 @@ type Msg
 
 init : ( Model, Cmd Msg )
 init =
-    ( { tags = { items = [ "dogs", "cats", "TIGER!" ], state = MultiInput.init tagsId }
-      , emails = { items = [ "valid@email.com", "another@email.com", "invalid" ], state = MultiInput.init emailsId }
-      , customStyleTags = { items = [ "#5A6378", "#60B5CC", "not-a-color" ], state = MultiInput.init customStyleTagsId }
+    ( { tags =
+            { items = [ "dogs", "cats", "TIGER!" ]
+            , state = MultiInput.init tagsId
+            }
+      , emails =
+            { items = [ "valid@email.com", "another@email.com", "invalid" ]
+            , state = MultiInput.init emailsId
+            }
+      , customStyleTags =
+            { items = [ "#5A6378", "#60B5CC", "not-a-color" ]
+            , state = MultiInput.init customStyleTagsId
+            }
       }
     , Cmd.none
     )
@@ -109,7 +119,10 @@ viewTagsExample model =
     Html.div [ Attr.class "example tags" ]
         [ Html.h2 [] [ Html.text "Tags" ]
         , MultiInput.view
-            { placeholder = "Write here", toOuterMsg = MultiInputMsg >> TagsMsg, isValid = matches "^[a-z0-9]+(?:-[a-z0-9]+)*$" }
+            { placeholder = "Write here"
+            , toOuterMsg = MultiInputMsg >> TagsMsg
+            , isValid = matches "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+            }
             []
             model.tags.items
             model.tags.state
@@ -140,7 +153,7 @@ viewEmailsExample model =
             []
             model.emails.items
             model.emails.state
-        , Html.p [ Attr.class "counter" ] [ Html.text <| "You've introduced (" ++ toString nValidEmails ++ "/" ++ toString maxValidEmails ++ ") valid emails" ]
+        , Html.p [ Attr.class "counter" ] [ Html.text <| "You've introduced (" ++ String.fromInt nValidEmails ++ "/" ++ String.fromInt maxValidEmails ++ ") valid emails" ]
         , Html.button [ Attr.class "reset", Ev.onClick <| EmailsMsg Reset ] [ Html.text "Reset" ]
         ]
 
@@ -180,4 +193,9 @@ defaultSeparators =
 
 matches : String -> String -> Bool
 matches regex =
-    Regex.find (Regex.AtMost 1) (Regex.regex regex) >> List.isEmpty >> not
+    let
+        validRegex =
+            Regex.fromString regex
+                |> Maybe.withDefault Regex.never
+    in
+    Regex.findAtMost 1 validRegex >> List.isEmpty >> not

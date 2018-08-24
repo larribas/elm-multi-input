@@ -1,14 +1,10 @@
 sudo: false
 
 cache:
+  yarn: true
   directories:
-    - test/elm-stuff/build-artifacts
+    - tests/elm-stuff/build-artifacts
     - sysconfcpus
-
-language: node_js
-
-node_js:
-  - "4.3"
 
 before_install:
   - if [ ${TRAVIS_OS_NAME} == "osx" ];
@@ -26,16 +22,14 @@ before_install:
     fi
 
 install:
-  - npm install -g elm@0.18 elm-test elm-format@exp
+  - npm install -g elm@0.18 elm-test@0.18.12 elm-format@exp
   - mv $(npm config get prefix)/bin/elm-make $(npm config get prefix)/bin/elm-make-old
   - printf '%s\n\n' '#!/bin/bash' 'echo "Running elm-make with sysconfcpus -n 2"' '$TRAVIS_BUILD_DIR/sysconfcpus/bin/sysconfcpus -n 2 elm-make-old "$@"' > $(npm config get prefix)/bin/elm-make
   - chmod +x $(npm config get prefix)/bin/elm-make
-  - elm-package install --yes
+  - travis_retry elm-package install --yes
   - cd tests
-  - elm-package install --yes
+  - travis_retry elm-package install --yes
   - cd ..
 
 script:
-  - elm-format --validate src tests
-  - elm-make --yes --warn
-  - elm-test
+  - elm-format --validate src tests demo

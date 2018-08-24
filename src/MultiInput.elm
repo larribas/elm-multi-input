@@ -1,4 +1,7 @@
-module MultiInput exposing (Msg(..), State, UpdateConfig, ViewConfig, init, update, view)
+module MultiInput exposing
+    ( ViewConfig, UpdateConfig
+    , Msg(..), State, init, update, view
+    )
 
 {-| A component to input multiple items and display/manage them comfortably.
 
@@ -18,7 +21,7 @@ For a better feel of what you can do with this component, visit the [demo here](
 
 -}
 
-import Dom
+import Browser.Dom as Dom
 import Html exposing (Html)
 import Html.Attributes as Attr
 import Html.Events as Ev
@@ -52,7 +55,7 @@ type alias State =
 
 You can specify a list of strings that act as separators for the different items.
 
-    { separators = ["\n", "\t", ",", " "] }
+    { separators = [ "\n", "\t", ",", " " ] }
 
 -}
 type alias UpdateConfig =
@@ -66,7 +69,7 @@ type alias UpdateConfig =
 `toOuterMsg` turns the internal messages for the component into messages from the outer page/component
 
     { placeholder = "Write your email here"
-    , isValid = (\x -> String.contains "@")
+    , isValid = \x -> String.contains "@"
     , toOuterMsg = MultiInputMsg
     }
 
@@ -116,6 +119,7 @@ update conf msg state items =
                 Tab ->
                     if nextItemIsEmpty then
                         noChanges
+
                     else
                         ( { state | nextItem = "" }, dropDuplicates (items ++ [ state.nextItem ]), refocus )
 
@@ -127,6 +131,7 @@ update conf msg state items =
 
                             Nothing ->
                                 noChanges
+
                     else
                         noChanges
 
@@ -136,10 +141,13 @@ update conf msg state items =
         InputChanged text ->
             let
                 separatorRegex =
-                    conf.separators |> List.map Regex.escape |> String.join "|" |> Regex.regex
+                    conf.separators
+                        |> String.join "|"
+                        |> Regex.fromString
+                        |> Maybe.withDefault Regex.never
 
                 allItems =
-                    text |> Regex.split Regex.All separatorRegex
+                    text |> Regex.split separatorRegex
 
                 ( newItems, nextItem ) =
                     ( allItems |> List.take (List.length allItems - 1) |> List.filter (not << String.isEmpty)
@@ -157,6 +165,7 @@ update conf msg state items =
         TextareaBlurred item ->
             if item /= "" then
                 ( { state | nextItem = "" }, dropDuplicates (items ++ [ item ]), Cmd.none )
+
             else
                 noChanges
 
@@ -189,6 +198,7 @@ viewExpandingTextArea conf customAttributes state =
                 [ Html.text <|
                     if state.nextItem /= "" then
                         state.nextItem
+
                     else
                         conf.placeholder
                 ]
@@ -258,6 +268,7 @@ dropDuplicates list =
         step next ( set, acc ) =
             if Set.member next set then
                 ( set, acc )
+
             else
                 ( Set.insert next set, next :: acc )
     in

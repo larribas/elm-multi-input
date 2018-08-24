@@ -12,90 +12,19 @@ A multi-value input for Elm
 Install the package:
 
 ```
-elm-package install larribas/elm-multi-input
+elm install larribas/elm-multi-input
 ```
 
-Here's an example of a minimal integration scenario for inputting multiple emails. I also recommend that you download the default sylesheet at `styles/multi-input.css`.
+| elm version | package version |
+|-------------|-----------------|
+| <= 0.17     | unsupported     |
+| 0.18        | 1.0.0           |
+| 0.19        | 1.0.1           |
 
 
-```elm
-module Main exposing (main)
+Check out `demo/Demo.elm` to see particular implementation examples.
 
-import Html exposing (Html)
-import Html.Attributes as Attr
-import Html.Events as Ev
-import MultiInput
-
-
-main : Program Never Model Msg
-main =
-    Html.program
-        { init = init
-        , update = update
-        , view = view
-        , subscriptions = subscriptions
-        }
-
-
-type alias Model =
-    { emails : List String
-    , inputState : MultiInput.State
-    }
-
-
-type Msg
-    = MultiInputMsg MultiInput.Msg
-
-
-init : ( Model, Cmd Msg )
-init =
-    ( { emails = []
-      , inputState = MultiInput.init "multi-email-input"
-      }
-    , Cmd.none
-    )
-
-
-subscriptions : Model -> Sub Msg
-subscriptions model =
-    Sub.none
-
-
-update : Msg -> Model -> ( Model, Cmd Msg )
-update msg model =
-    case msg of
-        MultiInputMsg subMsg ->
-            let
-                ( nextState, nextEmails, nextCmd ) =
-                    MultiInput.update updateConfig subMsg model.inputState model.emails
-            in
-            ( { model | emails = nextEmails, inputState = nextState }, Cmd.map MultiInputMsg nextCmd )
-
-
-updateConfig : MultiInput.UpdateConfig
-updateConfig =
-    { separators = [ "\n", "\t", " ", "," ]
-    }
-
-
-view : Model -> Html Msg
-view model =
-    MultiInput.view
-        viewConfig
-        []
-        model.emails
-        model.inputState
-
-
-viewConfig : MultiInput.ViewConfig Msg
-viewConfig =
-        { placeholder = "Write email here"
-        , toOuterMsg = MultiInputMsg
-        , isValid = Regex.find (Regex.AtMost 1) (Regex.regex ".+@.+\\..+") >> List.isEmpty >> not
-        }
-
-```
-
+I also recommend that you download the default sylesheet at `styles/multi-input.css`.
 
 ## Contribute
 
