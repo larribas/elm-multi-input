@@ -24,7 +24,9 @@
     <div id="main"></div>
     <script src="demo/demo.js"></script>
     <script>
-      Elm.Demo.embed(document.getElementById("main"));
+      var app = Elm.Demo.init({
+        node: document.getElementById("main")
+      });
     </script>
   </body>
 </html>
