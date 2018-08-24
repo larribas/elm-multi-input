@@ -87,7 +87,7 @@ a:hover {
     color: var(--elm-blue);
 }
 
-div#main > div.example-list {
+div.example-list {
     display: flex;
     flex-direction: column;
     align-items: center;
