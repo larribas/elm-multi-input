@@ -1,10 +1,8 @@
-module Main exposing (all, defaultInitState, suite, updateConfig)
+module Main exposing (suite)
 
 import Expect exposing (Expectation)
-import Fuzz exposing (Fuzzer, int, list, string)
 import MultiInput
-import Regex
-import Test exposing (..)
+import Test exposing (Test, describe, test)
 
 
 suite : Test
@@ -93,7 +91,7 @@ updateConfig =
 
 defaultInitState : MultiInput.State
 defaultInitState =
-    { nextItem = "", id = "id" }
+    MultiInput.init "id"
 
 
 all : (a -> Expectation) -> (a -> String) -> List a -> Expectation
