@@ -63,7 +63,17 @@ init =
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-    Sub.none
+    Sub.batch
+        [ MultiInput.subscriptions model.tags.state
+            |> Sub.map MultiInputMsg
+            |> Sub.map TagsMsg
+        , MultiInput.subscriptions model.emails.state
+            |> Sub.map MultiInputMsg
+            |> Sub.map EmailsMsg
+        , MultiInput.subscriptions model.customStyleTags.state
+            |> Sub.map MultiInputMsg
+            |> Sub.map CustomStyleTagsMsg
+        ]
 
 
 updateExample : ExampleMsg -> MultiInput.UpdateConfig -> Example -> (MultiInput.Msg -> Msg) -> String -> ( Example, Cmd Msg )

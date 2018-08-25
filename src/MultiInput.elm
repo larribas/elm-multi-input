@@ -1,6 +1,6 @@
 module MultiInput exposing
     ( ViewConfig, UpdateConfig
-    , Msg(..), State, init, update, view
+    , Msg(..), State, init, update, subscriptions, view
     )
 
 {-| A component to input multiple items and display/manage them comfortably.
@@ -17,11 +17,12 @@ For a better feel of what you can do with this component, visit the [demo here](
 
 # Main workflow
 
-@docs Msg, State, init, update, view
+@docs Msg, State, init, update, subscriptions, view
 
 -}
 
 import Browser.Dom as Dom
+import Browser.Events
 import Html exposing (Html)
 import Html.Attributes as Attr
 import Html.Events as Ev
@@ -36,7 +37,6 @@ import Task
 -}
 type Msg
     = FocusElement
-    | TextareaFocused
     | TextareaBlurred String
     | KeyDown Int
     | RemoveItem String
@@ -48,6 +48,7 @@ type Msg
 type alias State =
     { nextItem : String
     , id : String
+    , needsRefocus : Bool
     }
 
 
@@ -90,6 +91,7 @@ init : String -> State
 init id =
     { nextItem = ""
     , id = id
+    , needsRefocus = False
     }
 
 
@@ -106,13 +108,17 @@ update conf msg state items =
 
         noChanges =
             ( state, items, Cmd.none )
-
-        refocus =
-            Task.attempt (\_ -> TextareaFocused) (Dom.focus state.id)
     in
     case msg of
         FocusElement ->
-            ( state, items, refocus )
+            ( { state | needsRefocus = False }
+            , items
+            , if state.needsRefocus then
+                Task.attempt (\_ -> FocusElement) (Dom.focus state.id)
+
+              else
+                Cmd.none
+            )
 
         KeyDown key ->
             case toSpecialKey key of
@@ -121,13 +127,13 @@ update conf msg state items =
                         noChanges
 
                     else
-                        ( { state | nextItem = "" }, dropDuplicates (items ++ [ state.nextItem ]), refocus )
+                        ( { state | nextItem = "", needsRefocus = True }, dropDuplicates (items ++ [ state.nextItem ]), Cmd.none )
 
                 Backspace ->
                     if nextItemIsEmpty then
                         case items |> List.reverse |> List.head of
                             Just previousEmail ->
-                                ( { state | nextItem = previousEmail }, items |> List.take (List.length items - 1), refocus )
+                                ( { state | nextItem = previousEmail, needsRefocus = True }, items |> List.take (List.length items - 1), Cmd.none )
 
                             Nothing ->
                                 noChanges
@@ -154,13 +160,10 @@ update conf msg state items =
                     , allItems |> List.drop (List.length allItems - 1) |> List.head |> Maybe.withDefault ""
                     )
             in
-            ( { state | nextItem = nextItem }, dropDuplicates (items ++ newItems), refocus )
+            ( { state | nextItem = nextItem, needsRefocus = True }, dropDuplicates (items ++ newItems), Cmd.none )
 
         RemoveItem item ->
             ( state, List.filter ((/=) item) items, Cmd.none )
-
-        TextareaFocused ->
-            noChanges
 
         TextareaBlurred item ->
             if item /= "" then
@@ -168,6 +171,22 @@ update conf msg state items =
 
             else
                 noChanges
+
+
+{-| Subscribes to relevant events for the input
+
+This allows the component to control the input focus properly, subscribing to the Browser's animation frame sequence.
+
+The subscription is managed only when strictly needed, so it does not have an impact on performance.
+
+-}
+subscriptions : State -> Sub Msg
+subscriptions state =
+    if state.needsRefocus then
+        Browser.Events.onAnimationFrame (always FocusElement)
+
+    else
+        Sub.none
 
 
 {-| Renders the component visually.

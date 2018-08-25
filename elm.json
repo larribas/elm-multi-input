@@ -3,7 +3,7 @@
     "name": "larribas/elm-multi-input",
     "summary": "A multi-value input (for emails, tags, etc.)",
     "license": "BSD-3-Clause",
-    "version": "1.0.1",
+    "version": "2.0.0",
     "exposed-modules": [
         "MultiInput"
     ],

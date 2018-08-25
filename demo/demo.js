@@ -586,11 +586,11 @@ function _Debug_crash_UNUSED(identifier, fact1, fact2, fact3, fact4)
 
 function _Debug_regionToString(region)
 {
-	if (region.T.F === region._.F)
+	if (region.U.G === region.aa.G)
 	{
-		return 'on line ' + region.T.F;
+		return 'on line ' + region.U.G;
 	}
-	return 'on lines ' + region.T.F + ' through ' + region._.F;
+	return 'on lines ' + region.U.G + ' through ' + region.aa.G;
 }
 
 
@@ -1841,9 +1841,9 @@ var _Platform_worker = F4(function(impl, flagDecoder, debugMetadata, args)
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.aE,
-		impl.aP,
-		impl.aN,
+		impl.aF,
+		impl.aQ,
+		impl.aO,
 		function() { return function() {} }
 	);
 });
@@ -2643,9 +2643,9 @@ var _VirtualDom_mapEventTuple = F2(function(func, tuple)
 var _VirtualDom_mapEventRecord = F2(function(func, record)
 {
 	return {
-		m: func(record.m),
-		U: record.U,
-		R: record.R
+		n: func(record.n),
+		V: record.V,
+		S: record.S
 	}
 });
 
@@ -2913,11 +2913,11 @@ function _VirtualDom_makeCallback(eventNode, initialHandler)
 		// 3 = Custom
 
 		var value = result.a;
-		var message = !tag ? value : tag < 3 ? value.a : value.m;
-		var stopPropagation = tag == 1 ? value.b : tag == 3 && value.U;
+		var message = !tag ? value : tag < 3 ? value.a : value.n;
+		var stopPropagation = tag == 1 ? value.b : tag == 3 && value.V;
 		var currentEventNode = (
 			stopPropagation && event.stopPropagation(),
-			(tag == 2 ? value.b : tag == 3 && value.R) && event.preventDefault(),
+			(tag == 2 ? value.b : tag == 3 && value.S) && event.preventDefault(),
 			eventNode
 		);
 		var tagger;
@@ -3863,11 +3863,11 @@ var _Browser_element = _Debugger_element || F4(function(impl, flagDecoder, debug
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.aE,
-		impl.aP,
-		impl.aN,
+		impl.aF,
+		impl.aQ,
+		impl.aO,
 		function(sendToApp, initialModel) {
-			var view = impl.aR;
+			var view = impl.aS;
 			/**/
 			var domNode = args['node'];
 			//*/
@@ -3899,12 +3899,12 @@ var _Browser_document = _Debugger_document || F4(function(impl, flagDecoder, deb
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.aE,
-		impl.aP,
-		impl.aN,
+		impl.aF,
+		impl.aQ,
+		impl.aO,
 		function(sendToApp, initialModel) {
-			var divertHrefToApp = impl.G && impl.G(sendToApp)
-			var view = impl.aR;
+			var divertHrefToApp = impl.H && impl.H(sendToApp)
+			var view = impl.aS;
 			var title = _VirtualDom_doc.title;
 			var bodyNode = _VirtualDom_doc.body;
 			var currNode = _VirtualDom_virtualize(bodyNode);
@@ -3912,12 +3912,12 @@ var _Browser_document = _Debugger_document || F4(function(impl, flagDecoder, deb
 			{
 				_VirtualDom_divertHrefToApp = divertHrefToApp;
 				var doc = view(model);
-				var nextNode = _VirtualDom_node('body')(_List_Nil)(doc.aw);
+				var nextNode = _VirtualDom_node('body')(_List_Nil)(doc.ax);
 				var patches = _VirtualDom_diff(currNode, nextNode);
 				bodyNode = _VirtualDom_applyPatches(bodyNode, currNode, patches, sendToApp);
 				currNode = nextNode;
 				_VirtualDom_divertHrefToApp = 0;
-				(title !== doc.aO) && (_VirtualDom_doc.title = title = doc.aO);
+				(title !== doc.aP) && (_VirtualDom_doc.title = title = doc.aP);
 			});
 		}
 	);
@@ -3968,12 +3968,12 @@ function _Browser_makeAnimator(model, draw)
 
 function _Browser_application(impl)
 {
-	var onUrlChange = impl.aI;
-	var onUrlRequest = impl.aJ;
+	var onUrlChange = impl.aJ;
+	var onUrlRequest = impl.aK;
 	var key = function() { key.a(onUrlChange(_Browser_getUrl())); };
 
 	return _Browser_document({
-		G: function(sendToApp)
+		H: function(sendToApp)
 		{
 			key.a = sendToApp;
 			_Browser_window.addEventListener('popstate', key);
@@ -3989,9 +3989,9 @@ function _Browser_application(impl)
 					var next = elm$url$Url$fromString(href).a;
 					sendToApp(onUrlRequest(
 						(next
-							&& curr.am === next.am
-							&& curr.ac === next.ac
-							&& curr.aj.a === next.aj.a
+							&& curr.an === next.an
+							&& curr.ad === next.ad
+							&& curr.ak.a === next.ak.a
 						)
 							? elm$browser$Browser$Internal(next)
 							: elm$browser$Browser$External(href)
@@ -3999,13 +3999,13 @@ function _Browser_application(impl)
 				}
 			});
 		},
-		aE: function(flags)
+		aF: function(flags)
 		{
-			return A3(impl.aE, flags, _Browser_getUrl(), key);
+			return A3(impl.aF, flags, _Browser_getUrl(), key);
 		},
-		aR: impl.aR,
-		aP: impl.aP,
-		aN: impl.aN
+		aS: impl.aS,
+		aQ: impl.aQ,
+		aO: impl.aO
 	});
 }
 
@@ -4071,17 +4071,17 @@ var _Browser_decodeEvent = F2(function(decoder, event)
 function _Browser_visibilityInfo()
 {
 	return (typeof _VirtualDom_doc.hidden !== 'undefined')
-		? { aB: 'hidden', E: 'visibilitychange' }
+		? { aC: 'hidden', F: 'visibilitychange' }
 		:
 	(typeof _VirtualDom_doc.mozHidden !== 'undefined')
-		? { aB: 'mozHidden', E: 'mozvisibilitychange' }
+		? { aC: 'mozHidden', F: 'mozvisibilitychange' }
 		:
 	(typeof _VirtualDom_doc.msHidden !== 'undefined')
-		? { aB: 'msHidden', E: 'msvisibilitychange' }
+		? { aC: 'msHidden', F: 'msvisibilitychange' }
 		:
 	(typeof _VirtualDom_doc.webkitHidden !== 'undefined')
-		? { aB: 'webkitHidden', E: 'webkitvisibilitychange' }
-		: { aB: 'hidden', E: 'visibilitychange' };
+		? { aC: 'webkitHidden', F: 'webkitvisibilitychange' }
+		: { aC: 'hidden', F: 'visibilitychange' };
 }
 
 
@@ -4162,12 +4162,12 @@ var _Browser_call = F2(function(functionName, id)
 function _Browser_getViewport()
 {
 	return {
-		aq: _Browser_getScene(),
-		at: {
-			L: _Browser_window.pageXOffset,
-			M: _Browser_window.pageYOffset,
-			C: _Browser_doc.documentElement.clientWidth,
-			w: _Browser_doc.documentElement.clientHeight
+		ar: _Browser_getScene(),
+		au: {
+			M: _Browser_window.pageXOffset,
+			N: _Browser_window.pageYOffset,
+			D: _Browser_doc.documentElement.clientWidth,
+			y: _Browser_doc.documentElement.clientHeight
 		}
 	};
 }
@@ -4177,8 +4177,8 @@ function _Browser_getScene()
 	var body = _Browser_doc.body;
 	var elem = _Browser_doc.documentElement;
 	return {
-		C: Math.max(body.scrollWidth, body.offsetWidth, elem.scrollWidth, elem.offsetWidth, elem.clientWidth),
-		w: Math.max(body.scrollHeight, body.offsetHeight, elem.scrollHeight, elem.offsetHeight, elem.clientHeight)
+		D: Math.max(body.scrollWidth, body.offsetWidth, elem.scrollWidth, elem.offsetWidth, elem.clientWidth),
+		y: Math.max(body.scrollHeight, body.offsetHeight, elem.scrollHeight, elem.offsetHeight, elem.clientHeight)
 	};
 }
 
@@ -4201,15 +4201,15 @@ function _Browser_getViewportOf(id)
 	return _Browser_withNode(id, function(node)
 	{
 		return {
-			aq: {
-				C: node.scrollWidth,
-				w: node.scrollHeight
+			ar: {
+				D: node.scrollWidth,
+				y: node.scrollHeight
 			},
-			at: {
-				L: node.scrollLeft,
-				M: node.scrollTop,
-				C: node.clientWidth,
-				w: node.clientHeight
+			au: {
+				M: node.scrollLeft,
+				N: node.scrollTop,
+				D: node.clientWidth,
+				y: node.clientHeight
 			}
 		};
 	});
@@ -4239,18 +4239,18 @@ function _Browser_getElement(id)
 		var x = _Browser_window.pageXOffset;
 		var y = _Browser_window.pageYOffset;
 		return {
-			aq: _Browser_getScene(),
-			at: {
-				L: x,
-				M: y,
-				C: _Browser_doc.documentElement.clientWidth,
-				w: _Browser_doc.documentElement.clientHeight
+			ar: _Browser_getScene(),
+			au: {
+				M: x,
+				N: y,
+				D: _Browser_doc.documentElement.clientWidth,
+				y: _Browser_doc.documentElement.clientHeight
 			},
-			ay: {
-				L: x + rect.left,
-				M: y + rect.top,
-				C: rect.width,
-				w: rect.height
+			az: {
+				M: x + rect.left,
+				N: y + rect.top,
+				D: rect.width,
+				y: rect.height
 			}
 		};
 	});
@@ -4294,8 +4294,8 @@ var _Regex_never = /.^/;
 var _Regex_fromStringWith = F2(function(options, string)
 {
 	var flags = 'g';
-	if (options.af) { flags += 'm'; }
-	if (options.X) { flags += 'i'; }
+	if (options.ag) { flags += 'm'; }
+	if (options.Y) { flags += 'i'; }
 
 	try
 	{
@@ -5064,7 +5064,7 @@ var elm$core$String$contains = _String_contains;
 var elm$core$String$toInt = _String_toInt;
 var elm$url$Url$Url = F6(
 	function (protocol, host, port_, path, query, fragment) {
-		return {ab: fragment, ac: host, ah: path, aj: port_, am: protocol, an: query};
+		return {ac: fragment, ad: host, ai: path, ak: port_, an: protocol, ao: query};
 	});
 var elm$url$Url$chompBeforePath = F5(
 	function (protocol, path, params, frag, str) {
@@ -5179,37 +5179,29 @@ var larribas$elm_multi_input$Demo$customStyleTagsId = 'custom-style-tags-input';
 var larribas$elm_multi_input$Demo$emailsId = 'emails-input';
 var larribas$elm_multi_input$Demo$tagsId = 'tags-input';
 var larribas$elm_multi_input$MultiInput$init = function (id) {
-	return {K: id, f: ''};
+	return {L: id, o: false, g: ''};
 };
 var larribas$elm_multi_input$Demo$init = _Utils_Tuple2(
 	{
-		u: {
-			g: _List_fromArray(
+		r: {
+			h: _List_fromArray(
 				['#5A6378', '#60B5CC', 'not-a-color']),
-			i: larribas$elm_multi_input$MultiInput$init(larribas$elm_multi_input$Demo$customStyleTagsId)
+			e: larribas$elm_multi_input$MultiInput$init(larribas$elm_multi_input$Demo$customStyleTagsId)
 		},
-		p: {
-			g: _List_fromArray(
+		m: {
+			h: _List_fromArray(
 				['valid@email.com', 'another@email.com', 'invalid']),
-			i: larribas$elm_multi_input$MultiInput$init(larribas$elm_multi_input$Demo$emailsId)
+			e: larribas$elm_multi_input$MultiInput$init(larribas$elm_multi_input$Demo$emailsId)
 		},
-		A: {
-			g: _List_fromArray(
+		v: {
+			h: _List_fromArray(
 				['dogs', 'cats', 'TIGER!']),
-			i: larribas$elm_multi_input$MultiInput$init(larribas$elm_multi_input$Demo$tagsId)
+			e: larribas$elm_multi_input$MultiInput$init(larribas$elm_multi_input$Demo$tagsId)
 		}
 	},
 	elm$core$Platform$Cmd$none);
 var elm$core$Platform$Sub$batch = _Platform_batch;
-var elm$core$Platform$Sub$none = elm$core$Platform$Sub$batch(_List_Nil);
-var larribas$elm_multi_input$Demo$subscriptions = function (model) {
-	return elm$core$Platform$Sub$none;
-};
-var elm$core$Basics$composeL = F3(
-	function (g, f, x) {
-		return g(
-			f(x));
-	});
+var elm$core$Platform$Sub$map = _Platform_map;
 var larribas$elm_multi_input$Demo$CustomStyleTagsMsg = function (a) {
 	return {$: 2, a: a};
 };
@@ -5221,6 +5213,171 @@ var larribas$elm_multi_input$Demo$MultiInputMsg = function (a) {
 };
 var larribas$elm_multi_input$Demo$TagsMsg = function (a) {
 	return {$: 0, a: a};
+};
+var elm$browser$Browser$AnimationManager$Time = function (a) {
+	return {$: 0, a: a};
+};
+var elm$browser$Browser$AnimationManager$State = F3(
+	function (subs, request, oldTime) {
+		return {Q: oldTime, aq: request, as: subs};
+	});
+var elm$browser$Browser$AnimationManager$init = elm$core$Task$succeed(
+	A3(elm$browser$Browser$AnimationManager$State, _List_Nil, elm$core$Maybe$Nothing, 0));
+var elm$browser$Browser$AnimationManager$now = _Browser_now(0);
+var elm$browser$Browser$AnimationManager$rAF = _Browser_rAF(0);
+var elm$core$Platform$sendToSelf = _Platform_sendToSelf;
+var elm$core$Process$kill = _Scheduler_kill;
+var elm$core$Process$spawn = _Scheduler_spawn;
+var elm$browser$Browser$AnimationManager$onEffects = F3(
+	function (router, subs, _n0) {
+		var request = _n0.aq;
+		var oldTime = _n0.Q;
+		var _n1 = _Utils_Tuple2(request, subs);
+		if (_n1.a.$ === 1) {
+			if (!_n1.b.b) {
+				var _n2 = _n1.a;
+				return elm$browser$Browser$AnimationManager$init;
+			} else {
+				var _n4 = _n1.a;
+				return A2(
+					elm$core$Task$andThen,
+					function (pid) {
+						return A2(
+							elm$core$Task$andThen,
+							function (time) {
+								return elm$core$Task$succeed(
+									A3(
+										elm$browser$Browser$AnimationManager$State,
+										subs,
+										elm$core$Maybe$Just(pid),
+										time));
+							},
+							elm$browser$Browser$AnimationManager$now);
+					},
+					elm$core$Process$spawn(
+						A2(
+							elm$core$Task$andThen,
+							elm$core$Platform$sendToSelf(router),
+							elm$browser$Browser$AnimationManager$rAF)));
+			}
+		} else {
+			if (!_n1.b.b) {
+				var pid = _n1.a.a;
+				return A2(
+					elm$core$Task$andThen,
+					function (_n3) {
+						return elm$browser$Browser$AnimationManager$init;
+					},
+					elm$core$Process$kill(pid));
+			} else {
+				return elm$core$Task$succeed(
+					A3(elm$browser$Browser$AnimationManager$State, subs, request, oldTime));
+			}
+		}
+	});
+var elm$time$Time$Posix = elm$core$Basics$identity;
+var elm$time$Time$millisToPosix = elm$core$Basics$identity;
+var elm$browser$Browser$AnimationManager$onSelfMsg = F3(
+	function (router, newTime, _n0) {
+		var subs = _n0.as;
+		var oldTime = _n0.Q;
+		var send = function (sub) {
+			if (!sub.$) {
+				var tagger = sub.a;
+				return A2(
+					elm$core$Platform$sendToApp,
+					router,
+					tagger(
+						elm$time$Time$millisToPosix(newTime)));
+			} else {
+				var tagger = sub.a;
+				return A2(
+					elm$core$Platform$sendToApp,
+					router,
+					tagger(newTime - oldTime));
+			}
+		};
+		return A2(
+			elm$core$Task$andThen,
+			function (pid) {
+				return A2(
+					elm$core$Task$andThen,
+					function (_n1) {
+						return elm$core$Task$succeed(
+							A3(
+								elm$browser$Browser$AnimationManager$State,
+								subs,
+								elm$core$Maybe$Just(pid),
+								newTime));
+					},
+					elm$core$Task$sequence(
+						A2(elm$core$List$map, send, subs)));
+			},
+			elm$core$Process$spawn(
+				A2(
+					elm$core$Task$andThen,
+					elm$core$Platform$sendToSelf(router),
+					elm$browser$Browser$AnimationManager$rAF)));
+	});
+var elm$browser$Browser$AnimationManager$Delta = function (a) {
+	return {$: 1, a: a};
+};
+var elm$core$Basics$composeL = F3(
+	function (g, f, x) {
+		return g(
+			f(x));
+	});
+var elm$browser$Browser$AnimationManager$subMap = F2(
+	function (func, sub) {
+		if (!sub.$) {
+			var tagger = sub.a;
+			return elm$browser$Browser$AnimationManager$Time(
+				A2(elm$core$Basics$composeL, func, tagger));
+		} else {
+			var tagger = sub.a;
+			return elm$browser$Browser$AnimationManager$Delta(
+				A2(elm$core$Basics$composeL, func, tagger));
+		}
+	});
+_Platform_effectManagers['Browser.AnimationManager'] = _Platform_createManager(elm$browser$Browser$AnimationManager$init, elm$browser$Browser$AnimationManager$onEffects, elm$browser$Browser$AnimationManager$onSelfMsg, 0, elm$browser$Browser$AnimationManager$subMap);
+var elm$browser$Browser$AnimationManager$subscription = _Platform_leaf('Browser.AnimationManager');
+var elm$browser$Browser$AnimationManager$onAnimationFrame = function (tagger) {
+	return elm$browser$Browser$AnimationManager$subscription(
+		elm$browser$Browser$AnimationManager$Time(tagger));
+};
+var elm$browser$Browser$Events$onAnimationFrame = elm$browser$Browser$AnimationManager$onAnimationFrame;
+var elm$core$Platform$Sub$none = elm$core$Platform$Sub$batch(_List_Nil);
+var larribas$elm_multi_input$MultiInput$FocusElement = {$: 0};
+var larribas$elm_multi_input$MultiInput$subscriptions = function (state) {
+	return state.o ? elm$browser$Browser$Events$onAnimationFrame(
+		elm$core$Basics$always(larribas$elm_multi_input$MultiInput$FocusElement)) : elm$core$Platform$Sub$none;
+};
+var larribas$elm_multi_input$Demo$subscriptions = function (model) {
+	return elm$core$Platform$Sub$batch(
+		_List_fromArray(
+			[
+				A2(
+				elm$core$Platform$Sub$map,
+				larribas$elm_multi_input$Demo$TagsMsg,
+				A2(
+					elm$core$Platform$Sub$map,
+					larribas$elm_multi_input$Demo$MultiInputMsg,
+					larribas$elm_multi_input$MultiInput$subscriptions(model.v.e))),
+				A2(
+				elm$core$Platform$Sub$map,
+				larribas$elm_multi_input$Demo$EmailsMsg,
+				A2(
+					elm$core$Platform$Sub$map,
+					larribas$elm_multi_input$Demo$MultiInputMsg,
+					larribas$elm_multi_input$MultiInput$subscriptions(model.m.e))),
+				A2(
+				elm$core$Platform$Sub$map,
+				larribas$elm_multi_input$Demo$CustomStyleTagsMsg,
+				A2(
+					elm$core$Platform$Sub$map,
+					larribas$elm_multi_input$Demo$MultiInputMsg,
+					larribas$elm_multi_input$MultiInput$subscriptions(model.r.e)))
+			]));
 };
 var larribas$elm_multi_input$Demo$defaultSeparators = _List_fromArray(
 	['\n', '\t', ' ', ',']);
@@ -5424,18 +5581,17 @@ var elm$core$Task$attempt = F2(
 	});
 var elm$regex$Regex$Match = F4(
 	function (match, index, number, submatches) {
-		return {aD: index, aF: match, aH: number, aM: submatches};
+		return {aE: index, aG: match, aI: number, aN: submatches};
 	});
 var elm$regex$Regex$fromStringWith = _Regex_fromStringWith;
 var elm$regex$Regex$fromString = function (string) {
 	return A2(
 		elm$regex$Regex$fromStringWith,
-		{X: false, af: false},
+		{Y: false, ag: false},
 		string);
 };
 var elm$regex$Regex$never = _Regex_never;
 var elm$regex$Regex$split = _Regex_splitAtMost(_Regex_infinity);
-var larribas$elm_multi_input$MultiInput$TextareaFocused = {$: 1};
 var elm$core$Dict$RBEmpty_elm_builtin = {$: -2};
 var elm$core$Dict$empty = elm$core$Dict$RBEmpty_elm_builtin;
 var elm$core$Set$Set_elm_builtin = elm$core$Basics$identity;
@@ -5634,47 +5790,51 @@ var larribas$elm_multi_input$MultiInput$toSpecialKey = function (keyCode) {
 };
 var larribas$elm_multi_input$MultiInput$update = F4(
 	function (conf, msg, state, items) {
-		var refocus = A2(
-			elm$core$Task$attempt,
-			function (_n4) {
-				return larribas$elm_multi_input$MultiInput$TextareaFocused;
-			},
-			elm$browser$Browser$Dom$focus(state.K));
 		var noChanges = _Utils_Tuple3(state, items, elm$core$Platform$Cmd$none);
-		var nextItemIsEmpty = state.f === '';
+		var nextItemIsEmpty = state.g === '';
 		switch (msg.$) {
 			case 0:
-				return _Utils_Tuple3(state, items, refocus);
-			case 3:
+				return _Utils_Tuple3(
+					_Utils_update(
+						state,
+						{o: false}),
+					items,
+					state.o ? A2(
+						elm$core$Task$attempt,
+						function (_n1) {
+							return larribas$elm_multi_input$MultiInput$FocusElement;
+						},
+						elm$browser$Browser$Dom$focus(state.L)) : elm$core$Platform$Cmd$none);
+			case 2:
 				var key = msg.a;
-				var _n1 = larribas$elm_multi_input$MultiInput$toSpecialKey(key);
-				switch (_n1) {
+				var _n2 = larribas$elm_multi_input$MultiInput$toSpecialKey(key);
+				switch (_n2) {
 					case 0:
 						return nextItemIsEmpty ? noChanges : _Utils_Tuple3(
 							_Utils_update(
 								state,
-								{f: ''}),
+								{o: true, g: ''}),
 							larribas$elm_multi_input$MultiInput$dropDuplicates(
 								_Utils_ap(
 									items,
 									_List_fromArray(
-										[state.f]))),
-							refocus);
+										[state.g]))),
+							elm$core$Platform$Cmd$none);
 					case 1:
 						if (nextItemIsEmpty) {
-							var _n2 = elm$core$List$head(
+							var _n3 = elm$core$List$head(
 								elm$core$List$reverse(items));
-							if (!_n2.$) {
-								var previousEmail = _n2.a;
+							if (!_n3.$) {
+								var previousEmail = _n3.a;
 								return _Utils_Tuple3(
 									_Utils_update(
 										state,
-										{f: previousEmail}),
+										{o: true, g: previousEmail}),
 									A2(
 										elm$core$List$take,
 										elm$core$List$length(items) - 1,
 										items),
-									refocus);
+									elm$core$Platform$Cmd$none);
 							} else {
 								return noChanges;
 							}
@@ -5684,15 +5844,15 @@ var larribas$elm_multi_input$MultiInput$update = F4(
 					default:
 						return noChanges;
 				}
-			case 5:
+			case 4:
 				var text = msg.a;
 				var separatorRegex = A2(
 					elm$core$Maybe$withDefault,
 					elm$regex$Regex$never,
 					elm$regex$Regex$fromString(
-						A2(elm$core$String$join, '|', conf.S)));
+						A2(elm$core$String$join, '|', conf.T)));
 				var allItems = A2(elm$regex$Regex$split, separatorRegex, text);
-				var _n3 = _Utils_Tuple2(
+				var _n4 = _Utils_Tuple2(
 					A2(
 						elm$core$List$filter,
 						A2(elm$core$Basics$composeL, elm$core$Basics$not, elm$core$String$isEmpty),
@@ -5708,16 +5868,16 @@ var larribas$elm_multi_input$MultiInput$update = F4(
 								elm$core$List$drop,
 								elm$core$List$length(allItems) - 1,
 								allItems))));
-				var newItems = _n3.a;
-				var nextItem = _n3.b;
+				var newItems = _n4.a;
+				var nextItem = _n4.b;
 				return _Utils_Tuple3(
 					_Utils_update(
 						state,
-						{f: nextItem}),
+						{o: true, g: nextItem}),
 					larribas$elm_multi_input$MultiInput$dropDuplicates(
 						_Utils_ap(items, newItems)),
-					refocus);
-			case 4:
+					elm$core$Platform$Cmd$none);
+			case 3:
 				var item = msg.a;
 				return _Utils_Tuple3(
 					state,
@@ -5726,14 +5886,12 @@ var larribas$elm_multi_input$MultiInput$update = F4(
 						elm$core$Basics$neq(item),
 						items),
 					elm$core$Platform$Cmd$none);
-			case 1:
-				return noChanges;
 			default:
 				var item = msg.a;
 				return (item !== '') ? _Utils_Tuple3(
 					_Utils_update(
 						state,
-						{f: ''}),
+						{g: ''}),
 					larribas$elm_multi_input$MultiInput$dropDuplicates(
 						_Utils_ap(
 							items,
@@ -5746,22 +5904,22 @@ var larribas$elm_multi_input$Demo$updateExample = F5(
 	function (exampleMsg, updateConf, example, toOuterMsg, id) {
 		if (!exampleMsg.$) {
 			var msg = exampleMsg.a;
-			var _n1 = A4(larribas$elm_multi_input$MultiInput$update, updateConf, msg, example.i, example.g);
+			var _n1 = A4(larribas$elm_multi_input$MultiInput$update, updateConf, msg, example.e, example.h);
 			var nextState = _n1.a;
 			var nextItems = _n1.b;
 			var nextCmd = _n1.c;
 			return _Utils_Tuple2(
 				_Utils_update(
 					example,
-					{g: nextItems, i: nextState}),
+					{h: nextItems, e: nextState}),
 				A2(elm$core$Platform$Cmd$map, toOuterMsg, nextCmd));
 		} else {
 			return _Utils_Tuple2(
 				_Utils_update(
 					example,
 					{
-						g: _List_Nil,
-						i: larribas$elm_multi_input$MultiInput$init(id)
+						h: _List_Nil,
+						e: larribas$elm_multi_input$MultiInput$init(id)
 					}),
 				elm$core$Platform$Cmd$none);
 		}
@@ -5774,8 +5932,8 @@ var larribas$elm_multi_input$Demo$update = F2(
 				var _n1 = A5(
 					larribas$elm_multi_input$Demo$updateExample,
 					exampleMsg,
-					{S: larribas$elm_multi_input$Demo$defaultSeparators},
-					model.A,
+					{T: larribas$elm_multi_input$Demo$defaultSeparators},
+					model.v,
 					A2(elm$core$Basics$composeL, larribas$elm_multi_input$Demo$TagsMsg, larribas$elm_multi_input$Demo$MultiInputMsg),
 					larribas$elm_multi_input$Demo$tagsId);
 				var example = _n1.a;
@@ -5783,15 +5941,15 @@ var larribas$elm_multi_input$Demo$update = F2(
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
-						{A: example}),
+						{v: example}),
 					cmd);
 			case 1:
 				var exampleMsg = msg.a;
 				var _n2 = A5(
 					larribas$elm_multi_input$Demo$updateExample,
 					exampleMsg,
-					{S: larribas$elm_multi_input$Demo$defaultSeparators},
-					model.p,
+					{T: larribas$elm_multi_input$Demo$defaultSeparators},
+					model.m,
 					A2(elm$core$Basics$composeL, larribas$elm_multi_input$Demo$EmailsMsg, larribas$elm_multi_input$Demo$MultiInputMsg),
 					larribas$elm_multi_input$Demo$emailsId);
 				var example = _n2.a;
@@ -5799,15 +5957,15 @@ var larribas$elm_multi_input$Demo$update = F2(
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
-						{p: example}),
+						{m: example}),
 					cmd);
 			default:
 				var exampleMsg = msg.a;
 				var _n3 = A5(
 					larribas$elm_multi_input$Demo$updateExample,
 					exampleMsg,
-					{S: larribas$elm_multi_input$Demo$defaultSeparators},
-					model.u,
+					{T: larribas$elm_multi_input$Demo$defaultSeparators},
+					model.r,
 					A2(elm$core$Basics$composeL, larribas$elm_multi_input$Demo$CustomStyleTagsMsg, larribas$elm_multi_input$Demo$MultiInputMsg),
 					larribas$elm_multi_input$Demo$customStyleTagsId);
 				var example = _n3.a;
@@ -5815,7 +5973,7 @@ var larribas$elm_multi_input$Demo$update = F2(
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
-						{u: example}),
+						{r: example}),
 					cmd);
 		}
 	});
@@ -5876,7 +6034,6 @@ var larribas$elm_multi_input$Demo$matches = function (regex) {
 };
 var elm$html$Html$li = _VirtualDom_node('li');
 var elm$html$Html$ul = _VirtualDom_node('ul');
-var larribas$elm_multi_input$MultiInput$FocusElement = {$: 0};
 var elm$html$Html$br = _VirtualDom_node('br');
 var elm$html$Html$pre = _VirtualDom_node('pre');
 var elm$html$Html$span = _VirtualDom_node('span');
@@ -5930,13 +6087,13 @@ var elm$html$Html$Events$onInput = function (tagger) {
 			A2(elm$json$Json$Decode$map, tagger, elm$html$Html$Events$targetValue)));
 };
 var larribas$elm_multi_input$MultiInput$InputChanged = function (a) {
-	return {$: 5, a: a};
+	return {$: 4, a: a};
 };
 var larribas$elm_multi_input$MultiInput$KeyDown = function (a) {
-	return {$: 3, a: a};
+	return {$: 2, a: a};
 };
 var larribas$elm_multi_input$MultiInput$TextareaBlurred = function (a) {
-	return {$: 2, a: a};
+	return {$: 1, a: a};
 };
 var elm$json$Json$Decode$int = _Json_decodeInt;
 var elm$html$Html$Events$keyCode = A2(elm$json$Json$Decode$field, 'keyCode', elm$json$Json$Decode$int);
@@ -5967,7 +6124,7 @@ var larribas$elm_multi_input$MultiInput$viewExpandingTextArea = F3(
 							_List_fromArray(
 								[
 									elm$html$Html$text(
-									(state.f !== '') ? state.f : conf.Q)
+									(state.g !== '') ? state.g : conf.R)
 								])),
 							A2(elm$html$Html$br, _List_Nil, _List_Nil)
 						])),
@@ -5976,17 +6133,17 @@ var larribas$elm_multi_input$MultiInput$viewExpandingTextArea = F3(
 					_Utils_ap(
 						_List_fromArray(
 							[
-								elm$html$Html$Attributes$value(state.f),
-								elm$html$Html$Attributes$placeholder(conf.Q),
+								elm$html$Html$Attributes$value(state.g),
+								elm$html$Html$Attributes$placeholder(conf.R),
 								elm$html$Html$Attributes$rows(1),
-								elm$html$Html$Attributes$id(state.K),
+								elm$html$Html$Attributes$id(state.L),
 								elm$html$Html$Events$onInput(
-								A2(elm$core$Basics$composeL, conf.V, larribas$elm_multi_input$MultiInput$InputChanged)),
+								A2(elm$core$Basics$composeL, conf.W, larribas$elm_multi_input$MultiInput$InputChanged)),
 								elm$html$Html$Events$onBlur(
-								conf.V(
-									larribas$elm_multi_input$MultiInput$TextareaBlurred(state.f))),
+								conf.W(
+									larribas$elm_multi_input$MultiInput$TextareaBlurred(state.g))),
 								larribas$elm_multi_input$MultiInput$onKeyDown(
-								A2(elm$core$Basics$composeL, conf.V, larribas$elm_multi_input$MultiInput$KeyDown))
+								A2(elm$core$Basics$composeL, conf.W, larribas$elm_multi_input$MultiInput$KeyDown))
 							]),
 						customAttributes),
 					_List_Nil)
@@ -6005,7 +6162,7 @@ var elm$html$Html$Attributes$classList = function (classes) {
 				A2(elm$core$List$filter, elm$core$Tuple$second, classes))));
 };
 var larribas$elm_multi_input$MultiInput$RemoveItem = function (a) {
-	return {$: 4, a: a};
+	return {$: 3, a: a};
 };
 var larribas$elm_multi_input$MultiInput$viewItem = F3(
 	function (conf, state, item) {
@@ -6019,7 +6176,7 @@ var larribas$elm_multi_input$MultiInput$viewItem = F3(
 							_Utils_Tuple2('multi-input-token', true),
 							_Utils_Tuple2(
 							'multi-input-token-invalid',
-							!conf.N(item))
+							!conf.O(item))
 						]))
 				]),
 			_List_fromArray(
@@ -6036,7 +6193,7 @@ var larribas$elm_multi_input$MultiInput$viewItem = F3(
 								[
 									elm$html$Html$Attributes$class('multi-input-delete-button'),
 									elm$html$Html$Events$onClick(
-									conf.V(
+									conf.W(
 										larribas$elm_multi_input$MultiInput$RemoveItem(item)))
 								]),
 							_List_fromArray(
@@ -6062,7 +6219,7 @@ var larribas$elm_multi_input$MultiInput$view = F4(
 						[
 							elm$html$Html$Attributes$class('multi-input-list'),
 							elm$html$Html$Events$onClick(
-							conf.V(larribas$elm_multi_input$MultiInput$FocusElement))
+							conf.W(larribas$elm_multi_input$MultiInput$FocusElement))
 						]),
 					_Utils_ap(
 						A2(
@@ -6103,13 +6260,13 @@ var larribas$elm_multi_input$Demo$viewCustomStyleTagsExample = function (model) 
 				A4(
 				larribas$elm_multi_input$MultiInput$view,
 				{
-					N: larribas$elm_multi_input$Demo$matches('^#[a-fA-F0-9]{6}$'),
-					Q: 'Write here',
-					V: A2(elm$core$Basics$composeR, larribas$elm_multi_input$Demo$MultiInputMsg, larribas$elm_multi_input$Demo$CustomStyleTagsMsg)
+					O: larribas$elm_multi_input$Demo$matches('^#[a-fA-F0-9]{6}$'),
+					R: 'Write here',
+					W: A2(elm$core$Basics$composeR, larribas$elm_multi_input$Demo$MultiInputMsg, larribas$elm_multi_input$Demo$CustomStyleTagsMsg)
 				},
 				_List_Nil,
-				model.u.g,
-				model.u.i),
+				model.r.h,
+				model.r.e),
 				A2(
 				elm$html$Html$button,
 				_List_fromArray(
@@ -6127,7 +6284,7 @@ var larribas$elm_multi_input$Demo$viewCustomStyleTagsExample = function (model) 
 var larribas$elm_multi_input$Demo$viewEmailsExample = function (model) {
 	var maxValidEmails = 10;
 	var isValid = larribas$elm_multi_input$Demo$matches('.+@.+\\..+');
-	var validEmails = A2(elm$core$List$filter, isValid, model.p.g);
+	var validEmails = A2(elm$core$List$filter, isValid, model.m.h);
 	var nValidEmails = elm$core$List$length(validEmails);
 	return A2(
 		elm$html$Html$div,
@@ -6157,13 +6314,13 @@ var larribas$elm_multi_input$Demo$viewEmailsExample = function (model) {
 				A4(
 				larribas$elm_multi_input$MultiInput$view,
 				{
-					N: isValid,
-					Q: 'Write an email here',
-					V: A2(elm$core$Basics$composeR, larribas$elm_multi_input$Demo$MultiInputMsg, larribas$elm_multi_input$Demo$EmailsMsg)
+					O: isValid,
+					R: 'Write an email here',
+					W: A2(elm$core$Basics$composeR, larribas$elm_multi_input$Demo$MultiInputMsg, larribas$elm_multi_input$Demo$EmailsMsg)
 				},
 				_List_Nil,
-				model.p.g,
-				model.p.i),
+				model.m.h,
+				model.m.e),
 				A2(
 				elm$html$Html$p,
 				_List_fromArray(
@@ -6208,13 +6365,13 @@ var larribas$elm_multi_input$Demo$viewTagsExample = function (model) {
 				A4(
 				larribas$elm_multi_input$MultiInput$view,
 				{
-					N: larribas$elm_multi_input$Demo$matches('^[a-z0-9]+(?:-[a-z0-9]+)*$'),
-					Q: 'Write here',
-					V: A2(elm$core$Basics$composeR, larribas$elm_multi_input$Demo$MultiInputMsg, larribas$elm_multi_input$Demo$TagsMsg)
+					O: larribas$elm_multi_input$Demo$matches('^[a-z0-9]+(?:-[a-z0-9]+)*$'),
+					R: 'Write here',
+					W: A2(elm$core$Basics$composeR, larribas$elm_multi_input$Demo$MultiInputMsg, larribas$elm_multi_input$Demo$TagsMsg)
 				},
 				_List_Nil,
-				model.A.g,
-				model.A.i),
+				model.v.h,
+				model.v.e),
 				A2(
 				elm$html$Html$button,
 				_List_fromArray(
@@ -6245,10 +6402,10 @@ var larribas$elm_multi_input$Demo$view = function (model) {
 };
 var larribas$elm_multi_input$Demo$main = elm$browser$Browser$element(
 	{
-		aE: elm$core$Basics$always(larribas$elm_multi_input$Demo$init),
-		aN: larribas$elm_multi_input$Demo$subscriptions,
-		aP: larribas$elm_multi_input$Demo$update,
-		aR: larribas$elm_multi_input$Demo$view
+		aF: elm$core$Basics$always(larribas$elm_multi_input$Demo$init),
+		aO: larribas$elm_multi_input$Demo$subscriptions,
+		aQ: larribas$elm_multi_input$Demo$update,
+		aS: larribas$elm_multi_input$Demo$view
 	});
 _Platform_export({'Demo':{'init':larribas$elm_multi_input$Demo$main(
 	elm$json$Json$Decode$succeed(0))(0)}});}(this));

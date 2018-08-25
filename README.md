@@ -19,7 +19,7 @@ elm install larribas/elm-multi-input
 |-------------|-----------------|
 | <= 0.17     | unsupported     |
 | 0.18        | 1.0.0           |
-| 0.19        | 1.0.1           |
+| 0.19        | > 1.0.1         |
 
 
 Check out `demo/Demo.elm` to see particular implementation examples.
